@@ -1,26 +1,168 @@
 @import "tailwindcss";
 
+/* ============================================================
+   9449 YELLOWJACKETS — DESIGN TOKENS
+   Reasoning for every value: /docs/design/tokens.md
+   Do not add inline colours or arbitrary values anywhere.
+   ============================================================ */
+
+@theme {
+  /* --- COLOUR ------------------------------------------------
+     Dark-dominant instrument palette. Yellow is a signal colour,
+     never a wash. Max ~5% of any screen.                       */
+
+  --color-ink-900: #0b0c0e;   /* page ground. Not #000 — pure black
+                                 crushes photo detail and makes
+                                 yellow vibrate on OLED */
+  --color-ink-800: #121418;   /* panel */
+  --color-ink-700: #16181c;   /* raised panel */
+  --color-ink-600: #23262c;   /* borders on dark */
+
+  --color-steel-400: #8a9099; /* secondary text — 5.6:1 on ink-900 */
+  --color-steel-200: #b9bfc6;
+  --color-aluminum: #d7dbe0;  /* body text on dark — 12.4:1 */
+  --color-paper: #f2f3f5;     /* light surfaces */
+
+  --color-jacket-500: #ffc400; /* PRIMARY. 11.4:1 on ink-900.
+                                  Signal only. Never text on light. */
+  --color-jacket-600: #c99700; /* the only yellow allowed on light
+                                  surfaces, and fills/rules only */
+
+  --color-pass-500: #35c08b;  /* QC pass / complete only */
+  --color-fault-500: #ff5a3c; /* fault / destructive only */
+  --color-link-500: #6aa6ff;  /* links on dark */
+
+  /* --- TYPOGRAPHY --------------------------------------------
+     Archivo: variable width axis, engineering character.
+     IBM Plex: commissioned as an industrial type system.       */
+
+  --font-display: var(--font-archivo), system-ui, sans-serif;
+  --font-sans: var(--font-plex-sans), system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+
+  --text-display: clamp(2.75rem, 8vw, 7rem);
+  --text-display--line-height: 1.05;
+  --text-h1: clamp(2rem, 4.5vw, 3.5rem);
+  --text-h1--line-height: 1.1;
+  --text-h2: clamp(1.5rem, 3vw, 2.25rem);
+  --text-h2--line-height: 1.25;
+  --text-h3: 1.5rem;
+  --text-h3--line-height: 1.3;
+  --text-body: 1.0625rem;      /* 17px — 16 is a browser default,
+                                  not a decision */
+  --text-body--line-height: 1.6;
+  --text-small: 0.875rem;
+  --text-label: 0.75rem;       /* mono, uppercase, tracked */
+
+  /* --- SPACING — 4px base ------------------------------------
+     4 rather than 8 because the densest UI is a Hive data table */
+
+  --spacing: 0.25rem;
+
+  /* --- RADIUS ------------------------------------------------
+     Small radii read machined. 8px is the ceiling.             */
+
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+
+  /* --- ELEVATION ---------------------------------------------
+     Only two shadows exist. Depth otherwise comes from border
+     weight and value steps, as on a real instrument.           */
+
+  --shadow-menu: 0 4px 16px rgb(0 0 0 / 0.4);
+  --shadow-modal: 0 16px 48px rgb(0 0 0 / 0.6);
+
+  /* --- MOTION ------------------------------------------------ */
+
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-expo: cubic-bezier(0.7, 0, 0.84, 0);
+
+  /* --- BREAKPOINTS ------------------------------------------- */
+
+  --breakpoint-xs: 30rem;   /* 480 */
+  --breakpoint-sm: 48rem;   /* 768 — pinned hero switches off below */
+  --breakpoint-md: 64rem;   /* 1024 */
+  --breakpoint-lg: 80rem;   /* 1280 */
+  --breakpoint-xl: 96rem;   /* 1536 */
+}
+
+/* Durations and z-index are plain custom properties — Tailwind
+   has no theme namespace for them. Reference with var().        */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --dur-1: 120ms;  /* hover, focus, toggle */
+  --dur-2: 200ms;  /* buttons, tooltips */
+  --dur-3: 320ms;  /* cards, dropdowns, reveals */
+  --dur-4: 560ms;  /* modals, section transitions */
+  --stagger: 60ms;
+
+  --z-base: 0;
+  --z-raised: 10;
+  --z-sticky: 100;
+  --z-nav: 200;
+  --z-overlay: 900;
+  --z-modal: 1000;
+  --z-toast: 1100;
+  --z-skiplink: 1200;
+
+  --measure: 68ch;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* ============================================================
+   BASE
+   ============================================================ */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    border-color: var(--color-ink-600);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-ink-900);
+    color: var(--color-aluminum);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* All numbers align and never jitter during count-up. */
+  .font-mono,
+  [class*="font-mono"] {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Focus is never removed. This is a hard rule. */
+  :focus-visible {
+    outline: 2px solid var(--color-jacket-500);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+
+  ::selection {
+    background-color: var(--color-jacket-500);
+    color: var(--color-ink-900);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ============================================================
+   REDUCED MOTION
+   Must lose zero information. If it does, the animation was
+   decoration and should be deleted.
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
