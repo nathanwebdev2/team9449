@@ -1,15 +1,17 @@
-import type { ReactNode } from "react";
+import type { ElementType, ReactNode } from "react";
 
 export function Eyebrow({
   children,
   className = "",
+  as: Tag = "p",
 }: {
   children: ReactNode;
   className?: string;
+  as?: ElementType;
 }) {
   return (
-    <p className={`font-mono text-label uppercase tracking-widest text-steel-400 ${className}`}>
+    <Tag className={`font-mono text-label uppercase tracking-widest text-steel-400 ${className}`}>
       {children}
-    </p>
+    </Tag>
   );
 }

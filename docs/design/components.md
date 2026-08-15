@@ -13,8 +13,8 @@ Update this file in the same commit as any new component.
 |---|---|---|---|
 | `Container` | ✅ built | every page | max-width wrapper, centered, horizontal padding |
 | `Section` | ✅ built | every page | owns ALL vertical section spacing — nothing else may set it |
-| `Rule` | ✅ built | Nav (Hive separator), Footer | hairline divider |
-| `Eyebrow` | ✅ built | not yet used | mono uppercase label, ready for homepage stat sections |
+| `Rule` | ✅ built | Nav (Hive separator), Footer, `/team/join` (section dividers) | hairline divider |
+| `Eyebrow` | ✅ built | `/team` (Subteams section label) | mono uppercase label; takes `as` prop so it can render as a real heading (`as="h2"`) when it's the only label for a section, keeping heading order sequential |
 | `Nav` | ✅ built | every page (via root layout) | sticky, compacts on scroll, mobile panel |
 | `Footer` | ✅ built | every page (via root layout) | |
 
@@ -34,8 +34,9 @@ Update this file in the same commit as any new component.
 | `StatGrid` | ✅ built (spec 0004) | `/robots/[slug]` | big-number stat cells, skips empty/null stats; still needed on homepage + impact |
 | `RobotCard` | ✅ built | `/robots` index | hero image or initial placeholder, name, year, tagline, status badge |
 | `SponsorCard` / `SponsorGrid` | ⏳ not started | `/sponsors`, homepage | hex-cell tiles, sized by tier |
-| `PersonCard` / `SubteamCard` | ⏳ not started | `/team` | |
-| `ComingSoon` | ✅ built (spec 0005) | `/team`, `/impact`, `/sponsors`, `/resources` | title + description + "in progress" label + link home, no animation |
+| `SubteamCard` | ✅ built (spec 0006) | `/team` (×5: CAD, Build, Programming, Business, Drive) | name + description, border/radius/hover pattern follows `RobotCard` |
+| `PersonCard` | ⏳ not started | — | no student/mentor photos yet — consent process not in place |
+| `ComingSoon` | ✅ built (spec 0005) | `/impact`, `/sponsors`, `/resources` | title + description + "in progress" label + link home, no animation |
 
 ## UI primitives — `/src/components/ui/`
 
