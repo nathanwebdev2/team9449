@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(npm install)",
+      "Bash(npm test*)",
+      "Bash(npx tsc*)",
+      "Bash(npx tsx*)",
+      "Bash(git status)",
+      "Bash(git diff*)",
+      "Bash(git add*)",
+      "Bash(git log*)",
+      "Bash(ls*)",
+      "Bash(cat*)",
+      "Bash(dir*)",
+      "Edit",
+      "Write"
+    ],
+    "deny": [
+      "Bash(rm -rf*)",
+      "Bash(git push --force*)",
+      "Bash(git reset --hard*)",
+      "Bash(sudo*)",
+      "Bash(npm install -g*)"
+    ]
+  }
+}
