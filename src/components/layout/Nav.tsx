@@ -99,10 +99,10 @@ export function Nav() {
   return (
     <>
       <div aria-hidden="true" className="h-20" />
-      <header className="fixed inset-x-0 top-0 z-[var(--z-nav)]">
+      <header className="fixed inset-x-0 top-0 z-nav">
         <div
           aria-hidden="true"
-          className={`pointer-events-none absolute inset-0 border-b border-ink-600 bg-ink-900/85 backdrop-blur-md transition-opacity duration-[var(--dur-3)] ease-[var(--ease-standard)] ${
+          className={`pointer-events-none absolute inset-0 border-b border-ink-600 bg-ink-900/85 backdrop-blur-md transition-opacity duration-section ease-standard ${
             compact ? "opacity-100" : "opacity-0"
           }`}
         />
@@ -181,7 +181,7 @@ export function Nav() {
           role="dialog"
           aria-modal="true"
           aria-label="Mobile navigation"
-          className="fixed inset-0 z-[var(--z-overlay)] flex flex-col bg-ink-900 md:hidden"
+          className="fixed inset-0 z-overlay flex flex-col bg-ink-900 md:hidden"
         >
           <Container className="flex items-center justify-between py-5">
             <span className="inline-flex min-h-11 items-center font-display text-h3 text-aluminum">

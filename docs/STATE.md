@@ -1,6 +1,6 @@
 # STATE
 
-**Updated:** 2026-08-14 (rev 5)
+**Updated:** 2026-08-14 (rev 6)
 **Phase:** 1 - Public site foundation
 
 ## Hard constraint - read before recommending any tool
@@ -21,6 +21,7 @@ Even a "free tier requiring a card on file" counts as blocked.
 - `2025-concorde.mdx` and `2024-stampede-breakfast.mdx` exist with name/year only, status "retired" (unconfirmed - flagged for Nathan to correct if wrong), no photos yet
 - Spec 0005: `ComingSoon` component + placeholder pages for `/team` `/impact` `/sponsors` `/resources` - shipped, nav links no longer 404
 - Spec 0006: `/team` real content (intro, 5 subteam cards via new `SubteamCard`, "where we meet," mentor contact) + new `/team/join` route (fee breakdown, schedule, competition calendar, "no experience needed," disabled-style interest-form CTA with mailto fallback) - shipped. Lighthouse: 97-99 perf, 100 a11y on both routes (production build)
+- Spec 0007: removed all `[var(--...)]` Tailwind arbitrary-bracket usage from `src/` (the dashed-variable-name pattern that crashed `next dev`), replaced with named `@utility` classes in `globals.css` (`container-max`, `measure`, `z-nav`, `z-overlay`, `z-skiplink`, `duration-interface`, `duration-section`, `ease-standard`) - shipped. Verified: clean `.next` + `npm run dev` loads all 8 routes with zero console errors; `next build` clean; visual output unchanged
 
 ## In flight
 - Nothing currently in flight - see Next 3
@@ -34,9 +35,6 @@ Even a "free tier requiring a card on file" counts as blocked.
 1. Motion primitives (Reveal, CountUp) ahead of homepage hero work
 2. Real content specs for Impact/Sponsors/Resources
 3. The actual `/team/join` interest form + registration system (spec 0006 explicitly left this out - needs its own spec)
-
-## Known issues
-- `next dev` (Turbopack) throws a CSS parse error on `src/app/globals.css` (`.max-w-\[var\(--breakpoint-lg\)\]` in `Container.tsx` gets corrupted during Turbopack's class-name escaping, breaking every route with a 500) when starting from a clean `.next` cache. `next build` / `next start` are unaffected - this is dev-server-only and predates spec 0006 (Container.tsx untouched since spec 0002). Worth a fresh `.next` + `npm run dev` repro and possibly a Next.js/Tailwind version bump to confirm and file upstream if it persists.
 
 ## Decisions since last update
 - CodeRabbit replaced with CodeQL + Dependabot (no-payment constraint)

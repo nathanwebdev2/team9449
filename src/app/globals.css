@@ -110,6 +110,47 @@
 }
 
 /* ============================================================
+   NAMED UTILITIES
+   Tailwind v4's arbitrary-bracket syntax (`max-w-[var(--x)]`) can
+   corrupt a CSS variable name containing a dash and crash the
+   Turbopack dev server (spec 0007). Every var(--...) reference used
+   as a class gets a plain named utility here instead — no brackets,
+   ever. See CLAUDE.md §3.
+   ============================================================ */
+
+@utility container-max {
+  max-width: var(--breakpoint-lg);
+}
+
+@utility measure {
+  max-width: var(--measure);
+}
+
+@utility z-nav {
+  z-index: var(--z-nav);
+}
+
+@utility z-overlay {
+  z-index: var(--z-overlay);
+}
+
+@utility z-skiplink {
+  z-index: var(--z-skiplink);
+}
+
+@utility duration-interface {
+  transition-duration: var(--dur-2);
+}
+
+@utility duration-section {
+  transition-duration: var(--dur-3);
+}
+
+@utility ease-standard {
+  transition-timing-function: var(--ease-standard);
+}
+
+/* ============================================================
    BASE
    ============================================================ */
 

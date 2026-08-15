@@ -13,7 +13,7 @@ export function RobotCard({ robot, hero }: { robot: Robot; hero: string | null }
   return (
     <Link
       href={`/robots/${robot.slug}`}
-      className="group block overflow-hidden rounded-md border border-ink-600 bg-ink-800 transition-colors duration-[var(--dur-2)] ease-[var(--ease-standard)] hover:border-steel-400"
+      className="group block overflow-hidden rounded-md border border-ink-600 bg-ink-800 transition-colors duration-interface ease-standard hover:border-steel-400"
     >
       <div className="relative aspect-[4/3] w-full overflow-hidden bg-ink-700">
         {hero ? (
@@ -22,7 +22,7 @@ export function RobotCard({ robot, hero }: { robot: Robot; hero: string | null }
             alt=""
             fill
             sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-            className="object-cover transition-transform duration-[var(--dur-3)] ease-[var(--ease-standard)] group-hover:scale-[1.03]"
+            className="object-cover transition-transform duration-section ease-standard group-hover:scale-[1.03]"
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center" aria-hidden="true">

@@ -14,7 +14,7 @@ export function ComingSoon({
     <Section>
       <Container>
         <h1 className="font-display text-h1 text-aluminum">{title}</h1>
-        <p className="mt-4 max-w-[var(--measure)] text-body text-steel-200">
+        <p className="mt-4 measure text-body text-steel-200">
           {description}
         </p>
         <Eyebrow className="mt-8">In progress</Eyebrow>

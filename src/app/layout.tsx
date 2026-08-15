@@ -38,7 +38,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="flex min-h-full flex-col">
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[var(--z-skiplink)] focus:rounded-sm focus:bg-jacket-500 focus:px-4 focus:py-2 focus:text-ink-900"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-skiplink focus:rounded-sm focus:bg-jacket-500 focus:px-4 focus:py-2 focus:text-ink-900"
         >
           Skip to content
         </a>

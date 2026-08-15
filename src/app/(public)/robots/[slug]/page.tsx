@@ -144,7 +144,7 @@ export default async function RobotDetailPage(props: PageProps<"/robots/[slug]">
           )}
 
           {body && (
-            <div className="mt-12 max-w-[var(--measure)]">
+            <div className="mt-12 measure">
               {body.split(/\n\s*\n/).map((paragraph, i) => (
                 <p key={i} className="mt-4 text-body text-aluminum first:mt-0">
                   {paragraph.trim()}

@@ -41,14 +41,14 @@ export default function TeamPage() {
       <Section className="pb-0 md:pb-0">
         <Container>
           <h1 className="font-display text-h1 text-aluminum">Team</h1>
-          <p className="mt-4 max-w-[var(--measure)] text-body text-steel-200">
+          <p className="mt-4 measure text-body text-steel-200">
             9449 Yellowjackets is a community FRC robotics team based in
             Calgary, Alberta — open to any student grades 9–12, regardless of
             school. No prior experience required.
           </p>
           <Link
             href="/team/join"
-            className="mt-8 inline-flex min-h-11 items-center rounded-sm bg-jacket-500 px-5 font-medium text-ink-900 transition-opacity duration-[var(--dur-2)] ease-[var(--ease-standard)] hover:opacity-90"
+            className="mt-8 inline-flex min-h-11 items-center rounded-sm bg-jacket-500 px-5 font-medium text-ink-900 transition-opacity duration-interface ease-standard hover:opacity-90"
           >
             Join the team
           </Link>
@@ -73,7 +73,7 @@ export default function TeamPage() {
       <Section className="pt-0 md:pt-0">
         <Container>
           <h2 className="font-display text-h3 text-aluminum">Where we meet</h2>
-          <p className="mt-4 max-w-[var(--measure)] text-body text-steel-200">
+          <p className="mt-4 measure text-body text-steel-200">
             The team meets at Renert School, our in-kind build space sponsor.
           </p>
         </Container>

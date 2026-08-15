@@ -40,7 +40,7 @@ export default function JoinTeamPage() {
       <Section className="pb-0 md:pb-0">
         <Container>
           <h1 className="font-display text-h1 text-aluminum">Join the Team</h1>
-          <p className="mt-4 max-w-[var(--measure)] text-body text-steel-200">
+          <p className="mt-4 measure text-body text-steel-200">
             Open to any Calgary-area student, grades 9–12, no robotics
             experience required.
           </p>
@@ -68,7 +68,7 @@ export default function JoinTeamPage() {
         <Container>
           <Rule className="mb-16" />
           <h2 className="font-display text-h3 text-aluminum">Schedule</h2>
-          <div className="mt-4 max-w-[var(--measure)] text-body text-steel-200">
+          <div className="mt-4 measure text-body text-steel-200">
             <p>
               During build/competition season (January–May): meets Saturdays
               and Sundays, 10am–7pm.
@@ -111,7 +111,7 @@ export default function JoinTeamPage() {
           <h2 className="font-display text-h3 text-aluminum">
             No experience needed
           </h2>
-          <p className="mt-4 max-w-[var(--measure)] text-body text-steel-200">
+          <p className="mt-4 measure text-body text-steel-200">
             The team is genuinely open to complete beginners across all
             subteams — CAD, Build, Programming, Business, and Drive.
           </p>

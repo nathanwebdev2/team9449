@@ -9,7 +9,7 @@ export function Container({
 }) {
   return (
     <div
-      className={`mx-auto w-full max-w-[var(--breakpoint-lg)] px-6 md:px-10 ${className}`}
+      className={`mx-auto w-full container-max px-6 md:px-10 ${className}`}
     >
       {children}
     </div>
