@@ -1,6 +1,6 @@
 # STATE
 
-**Updated:** 2026-08-14 (rev 3)
+**Updated:** 2026-08-14 (rev 4)
 **Phase:** 1 - Public site foundation
 
 ## Hard constraint - read before recommending any tool
@@ -19,9 +19,10 @@ Even a "free tier requiring a card on file" counts as blocked.
 - `docs/design/tokens.md` and `components.md` written
 - `content/robots/2026-honeycomb.mdx` has real content from Nathan (drivetrain, tagline, CAD link to Onshape WIP, code/binder links); photos in `public/robots/2026-honeycomb/`
 - `2025-concorde.mdx` and `2024-stampede-breakfast.mdx` exist with name/year only, status "retired" (unconfirmed - flagged for Nathan to correct if wrong), no photos yet
+- Spec 0005: `ComingSoon` component + placeholder pages for `/team` `/impact` `/sponsors` `/resources` - shipped, nav links no longer 404
 
 ## In flight
-- Spec 0005: placeholder "coming soon" pages for /team /impact /sponsors /resources, so nav links stop 404ing on the live public site
+- Nothing currently in flight - see Next 3
 
 ## Blocked
 - Custom domain `team9449.ca` not purchased - needs explicit budget approval
@@ -29,9 +30,9 @@ Even a "free tier requiring a card on file" counts as blocked.
 - Photo filenames in `public/robots/2026-honeycomb/` are camera dumps (IMG_1952.JPEG) - alt text is generic until renamed, not urgent
 
 ## Next 3
-1. Ship spec 0005 (placeholder pages)
-2. Recruitment path: `/team` + `/team/join` real content (flagged as a gap the original project spec never covered - see addendum R2)
-3. Motion primitives (Reveal, CountUp) ahead of homepage hero work
+1. Recruitment path: `/team` + `/team/join` real content (flagged as a gap the original project spec never covered - see addendum R2)
+2. Motion primitives (Reveal, CountUp) ahead of homepage hero work
+3. Real content specs for Impact/Sponsors/Resources
 
 ## Decisions since last update
 - CodeRabbit replaced with CodeQL + Dependabot (no-payment constraint)

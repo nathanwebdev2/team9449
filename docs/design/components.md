@@ -35,6 +35,7 @@ Update this file in the same commit as any new component.
 | `RobotCard` | ✅ built | `/robots` index | hero image or initial placeholder, name, year, tagline, status badge |
 | `SponsorCard` / `SponsorGrid` | ⏳ not started | `/sponsors`, homepage | hex-cell tiles, sized by tier |
 | `PersonCard` / `SubteamCard` | ⏳ not started | `/team` | |
+| `ComingSoon` | ✅ built (spec 0005) | `/team`, `/impact`, `/sponsors`, `/resources` | title + description + "in progress" label + link home, no animation |
 
 ## UI primitives — `/src/components/ui/`
 
