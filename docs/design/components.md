@@ -22,9 +22,9 @@ Update this file in the same commit as any new component.
 
 | Component | Status | Usages | Notes |
 |---|---|---|---|
-| `Reveal` | ⏳ spec 0003 | homepage stat grid, robot cards, impact section | fade + 8px rise, in-view triggered |
-| `CountUp` | ⏳ spec 0003 | homepage stat grid | tabular figures, no jitter |
-| `ScrubSequence` | ⏳ future spec | homepage hero only | GSAP ScrollTrigger scrub player |
+| `Reveal` | ✅ built (spec 0008) | none yet — homepage stat grid, robot cards, impact section planned | fade + 8px rise, in-view triggered once, `prefers-reduced-motion` skips straight to final state |
+| `CountUp` | ✅ built (spec 0008) | none yet — homepage stat grid planned | counts once on in-view, tabular figures via `.font-mono`, reduced-motion jumps to final value |
+| `ScrubSequence` | ⏳ stub only (spec 0008) | homepage hero only, not built yet | shell renders `frames[0]` or a "Sequence coming soon" placeholder; GSAP ScrollTrigger wiring is a future spec, blocked on the CAD frame export |
 
 ## Content — `/src/components/content/`
 
