@@ -2,9 +2,11 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import { getRobotBody, getRobotBySlug, getRobotImages, getRobots } from "@/lib/content/robots";
 import { isPlaceholder } from "@/lib/content/is-placeholder";
+import { getTeamCompetitionRecord } from "@/lib/tba";
 import { STATUS_LABEL } from "@/components/content/RobotCard";
 import { SpecTable } from "@/components/content/SpecTable";
 import { StatGrid } from "@/components/content/StatGrid";
+import { CompetitionRecord } from "@/components/content/CompetitionRecord";
 import { Section } from "@/components/layout/Section";
 import { Container } from "@/components/layout/Container";
 
@@ -32,6 +34,9 @@ export default async function RobotDetailPage(props: PageProps<"/robots/[slug]">
 
   const { hero, gallery } = getRobotImages(robot.slug);
   const body = getRobotBody(robot.slug);
+  const competitionRecord = robot.tbaTeamKey
+    ? await getTeamCompetitionRecord(robot.tbaTeamKey, robot.year)
+    : null;
 
   const links = [
     robot.cadUrl ? { label: "View CAD (work in progress)", href: robot.cadUrl } : null,
@@ -100,6 +105,8 @@ export default async function RobotDetailPage(props: PageProps<"/robots/[slug]">
               ]}
             />
           </div>
+
+          {competitionRecord && <CompetitionRecord record={competitionRecord} />}
 
           {links.length > 0 && (
             <div className="mt-12">
