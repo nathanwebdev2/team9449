@@ -33,6 +33,7 @@ Update this file in the same commit as any new component.
 | `SpecTable` | ✅ built | `/robots/[slug]` | label/value pairs, mono values, real `<table>` markup, skips empty/null rows |
 | `StatGrid` | ✅ built (spec 0004) | `/robots/[slug]` | big-number stat cells, skips empty/null stats; still needed on homepage + impact |
 | `RobotCard` | ✅ built | `/robots` index | hero image or initial placeholder, name, year, tagline, status badge |
+| `CompetitionRecord` | ✅ built (spec 0009) | `/robots/[slug]` | events/results table + awards list, sourced from TBA (`src/lib/tba.ts`), skips rendering entirely if no TBA data or the fetch fails |
 | `SponsorCard` / `SponsorGrid` | ⏳ not started | `/sponsors`, homepage | hex-cell tiles, sized by tier |
 | `SubteamCard` | ✅ built (spec 0006) | `/team` (×5: CAD, Build, Programming, Business, Drive) | name + description, border/radius/hover pattern follows `RobotCard` |
 | `PersonCard` | ⏳ not started | — | no student/mentor photos yet — consent process not in place |
