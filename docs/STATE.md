@@ -1,46 +1,44 @@
 # STATE
 
-**Updated:** 2026-08-14 (rev 2)
-**Phase:** 0 — Foundation
+**Updated:** 2026-08-14 (rev 3)
+**Phase:** 1 - Public site foundation
 
-## Hard constraint — read before recommending any tool
+## Hard constraint - read before recommending any tool
 **No paid tools of any kind, except the existing Claude Pro subscription.**
-Even a "free tier requiring a card on file" counts as blocked — Nathan cannot add a card.
-Every future tool suggestion must be confirmed as genuinely $0, no-card, before being proposed.
+Even a "free tier requiring a card on file" counts as blocked.
 
 ## Done
-- Node 24.15.0, npm 11.12.1, git 2.54.0 installed (Windows)
-- Next.js + TypeScript + Tailwind v4 scaffold created
-- GitHub **organization** confirmed: `nathanwebdev2` (verified via org settings page — not a personal account)
-- Repo live: `github.com/nathanwebdev2/team9449` (public)
+- Full dev environment set up (Node, npm, git, VS Code, Claude Code on Sonnet)
+- GitHub org confirmed: `nathanwebdev2` (public repo `team9449`)
 - Deployed: https://team9449.vercel.app
-- Claude Code installed in VS Code, model set to Sonnet
-- `CLAUDE.md`, `globals.css` tokens, `/docs` structure written (pending confirmation of commit)
+- CodeRabbit dropped (requires card) - replaced with GitHub CodeQL + Dependabot, both enabled
+- `.claude/settings.json` added to reduce permission prompts (safe commands pre-approved, destructive ones still ask)
+- Spec 0002: fonts (Archivo/Plex Sans/Plex Mono), layout primitives (Container/Section/Rule/Eyebrow), Nav (sticky, compacts on scroll, keyboard-accessible mobile menu), Footer - shipped
+- Spec 0003: robot content schema (Zod) + MDX loader with validation errors - shipped
+- Spec 0004: `/robots` index + `/robots/[slug]` detail pages, image auto-discovery from `/public/robots/<slug>/`, SpecTable/StatGrid/RobotCard components - shipped. Lighthouse: 99/100 perf, 100 a11y (mobile); 100/100 both (desktop)
+- `docs/design/tokens.md` and `components.md` written
+- `content/robots/2026-honeycomb.mdx` has real content from Nathan (drivetrain, tagline, CAD link to Onshape WIP, code/binder links); photos in `public/robots/2026-honeycomb/`
+- `2025-concorde.mdx` and `2024-stampede-breakfast.mdx` exist with name/year only, status "retired" (unconfirmed - flagged for Nathan to correct if wrong), no photos yet
 
 ## In flight
-- Nothing. Awaiting confirmation of Step 4-6 from Session 2 (globals.css check, localhost dark, live site dark, git push).
+- Spec 0005: placeholder "coming soon" pages for /team /impact /sponsors /resources, so nav links stop 404ing on the live public site
 
 ## Blocked
-- Custom domain `team9449.ca` not purchased (has real cost - needs explicit budget approval when raised)
-- No real content or photography yet - `[TK]` placeholders in use
-- Content owner is Nathan (also the developer) - needs protected writing time
-
-## Resolved
-- ~~CodeRabbit~~ - **dropped.** Requires a card on file even on the free tier, which is blocked by the no-payment constraint. **Replaced with GitHub's built-in CodeQL (security scanning) + Dependabot (dependency alerts)** - both genuinely free, no card, native to every GitHub repo. Turned on via repo Settings -> Code security and analysis.
-- The gap CodeRabbit would have filled (a second opinion on Claude Code's diffs) is covered by a `[REVIEW]` chat with the planning Claude before every merge - this was already the plan, CodeRabbit was a supplement not the foundation.
-- `nathanwebdev2` confirmed as an organization, not personal account. No transfer needed.
+- Custom domain `team9449.ca` not purchased - needs explicit budget approval
+- Real content for Team/Impact/Sponsors/Resources sections - Nathan is sole content owner, also the developer
+- Photo filenames in `public/robots/2026-honeycomb/` are camera dumps (IMG_1952.JPEG) - alt text is generic until renamed, not urgent
 
 ## Next 3
-1. Confirm CodeQL + Dependabot are enabled
-2. Fonts + layout shell (Nav, Footer, Section, Container, Rule)
-3. Motion primitives (`Reveal`, `CountUp`, `ScrubSequence`)
+1. Ship spec 0005 (placeholder pages)
+2. Recruitment path: `/team` + `/team/join` real content (flagged as a gap the original project spec never covered - see addendum R2)
+3. Motion primitives (Reveal, CountUp) ahead of homepage hero work
 
 ## Decisions since last update
-- All 7 Addendum v2 decisions approved
-- Rive cut (no owner named)
-- Claude Code defaults to Sonnet; Opus reserved for hero scroll work and full-repo audits
-- Placeholder content must be prefixed `[TK]`
-- **CodeRabbit replaced with CodeQL + Dependabot due to no-payment constraint**
+- CodeRabbit replaced with CodeQL + Dependabot (no-payment constraint)
+- `nathanwebdev2` confirmed as a real GitHub organization
+- Claude Code given a pre-approved command allowlist to cut down permission prompts; commit/push deliberately excluded so Nathan always sees what ships
+- Content validation: distinguish `null`/empty (skip field) from literal string `"[TK]"` (also skip, was a bug, now fixed) - see `src/lib/content/is-placeholder.ts`
 
 ## Open questions for planning chat
-- None blocking. Domain purchase will need explicit go-ahead when we reach it, since it's a real cost.
+- Confirm Concorde/Stampede Breakfast status is really "retired"
+- Domain purchase timing/approval
