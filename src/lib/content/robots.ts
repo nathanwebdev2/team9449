@@ -4,6 +4,13 @@ import matter from "gray-matter";
 import { robotSchema, type Robot } from "./robot-schema";
 
 const ROBOTS_DIR = path.join(process.cwd(), "content", "robots");
+const PUBLIC_ROBOTS_DIR = path.join(process.cwd(), "public", "robots");
+const IMAGE_EXTENSIONS = new Set([".jpg", ".jpeg", ".png", ".webp"]);
+
+export interface RobotImages {
+  hero: string | null;
+  gallery: string[];
+}
 
 export function getRobots(): Robot[] {
   if (!fs.existsSync(ROBOTS_DIR)) return [];
@@ -33,4 +40,42 @@ export function getRobots(): Robot[] {
   }
 
   return robots;
+}
+
+export function getRobotBySlug(slug: string): Robot | null {
+  return getRobots().find((robot) => robot.slug === slug) ?? null;
+}
+
+export function getRobotBody(slug: string): string {
+  const filePath = path.join(ROBOTS_DIR, `${slug}.mdx`);
+  if (!fs.existsSync(filePath)) return "";
+
+  const raw = fs.readFileSync(filePath, "utf-8");
+  const { content } = matter(raw);
+  return content.trim();
+}
+
+/**
+ * Reads /public/robots/<slug>/ and picks a hero image + gallery,
+ * so dropping files in a folder is enough — nobody hand-writes paths.
+ */
+export function getRobotImages(slug: string): RobotImages {
+  const dir = path.join(PUBLIC_ROBOTS_DIR, slug);
+  if (!fs.existsSync(dir)) return { hero: null, gallery: [] };
+
+  const files = fs
+    .readdirSync(dir)
+    .filter((file) => IMAGE_EXTENSIONS.has(path.extname(file).toLowerCase()))
+    .sort((a, b) => a.localeCompare(b));
+
+  if (files.length === 0) return { hero: null, gallery: [] };
+
+  const heroFile =
+    files.find((file) => path.parse(file).name.toLowerCase() === "hero") ?? files[0];
+
+  const gallery = files
+    .filter((file) => file !== heroFile)
+    .map((file) => `/robots/${slug}/${file}`);
+
+  return { hero: `/robots/${slug}/${heroFile}`, gallery };
 }
