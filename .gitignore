@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# hero CAD source frames — 83MB of raw PNG, optimised output is committed instead
+# regenerate public/homepage/hero/*.webp with: node scripts/build-hero-frames.mjs
+/assets/homepage/hero-src/

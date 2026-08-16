@@ -24,7 +24,7 @@ Update this file in the same commit as any new component.
 |---|---|---|---|
 | `Reveal` | ✅ built (spec 0008) | none yet — homepage stat grid, robot cards, impact section planned | fade + 8px rise, in-view triggered once, `prefers-reduced-motion` skips straight to final state |
 | `CountUp` | ✅ built (spec 0008) | none yet — homepage stat grid planned | counts once on in-view, tabular figures via `.font-mono`, reduced-motion jumps to final value |
-| `ScrubSequence` | ⏳ stub only (spec 0008) | homepage hero only, not built yet | shell renders `frames[0]` or a "Sequence coming soon" placeholder; GSAP ScrollTrigger wiring is a future spec, blocked on the CAD frame export |
+| `ScrubSequence` | ✅ built (spec 0010) | homepage hero — the only L4 section on the site, by design | 61-frame CAD rotation scrubbed to a `<canvas>` clipped to a flat-top hex aperture. Pin is CSS `position: sticky`, **not** ScrollTrigger `pin` — GSAP only reads scroll progress, so no pin-spacer and no CLS. Layout (track height, sticky stage, reduced-motion collapse) lives in `globals.css` so it is right on first paint. Frame 1 is a server-rendered poster and the LCP element; frames 2–61 load on `requestIdleCallback` at concurrency 6, desktop-only. Mobile (`<48rem`), `prefers-reduced-motion`, and Save-Data all keep the poster and never fetch GSAP or the other 60 frames. Props: `frames`, `children` (rendered in the pinned stage), `className` |
 
 ## Content — `/src/components/content/`
 

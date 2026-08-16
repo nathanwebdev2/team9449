@@ -107,6 +107,13 @@
   --z-skiplink: 1200;
 
   --measure: 68ch;
+
+  /* Homepage hero (spec 0010). The aperture has no token because nothing
+     else on the site is sized like it — named here rather than inlined so
+     there is still one source of truth. Scroll distance is the pinned
+     travel: 61 frames over ~180vh of scrub reads steady without dragging. */
+  --hero-aperture-max: 700px;
+  --hero-scroll-distance: 280vh;
 }
 
 /* ============================================================
@@ -188,6 +195,108 @@
   ::selection {
     background-color: var(--color-jacket-500);
     color: var(--color-ink-900);
+  }
+}
+
+/* ============================================================
+   HOMEPAGE HERO — pinned scroll sequence (spec 0010)
+
+   The pin is CSS `position: sticky`, not ScrollTrigger's `pin`.
+   ScrollTrigger then only *reads* scroll progress to pick a frame;
+   it never injects a pin-spacer or mutates layout, so there is no
+   CLS and no scroll hijacking. Doing the layout in CSS also means
+   it is correct on first paint with JS disabled or still loading.
+
+   Order matters: the reduced-motion block comes last so it beats
+   the desktop block on source order alone — `!important` is banned
+   (CLAUDE.md §3).
+   ============================================================ */
+
+.hero-track {
+  position: relative;
+  /* The track is a child of a flex column (`<main>`); without this its
+     explicit height is a shrink target. */
+  flex: none;
+}
+
+.hero-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--spacing) * 10);
+}
+
+/* Flat-top hexagon — the aperture the robot is viewed through. Matches
+   the geometry baked into the frames by scripts/build-hero-frames.mjs.
+   The outer element is the hairline edge; the inner is inset 1px and
+   clipped the same way, which is how you get a hex "border" (a real
+   border would be clipped away). */
+.hero-aperture,
+.hero-aperture-inner {
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+}
+
+.hero-aperture {
+  position: relative;
+  /* The vh term caps the *width*, which is what keeps the derived height
+     (~0.87x) plus the heading inside one viewport on a short laptop. */
+  width: min(var(--hero-aperture-max), 92vw, 56vh);
+  aspect-ratio: 780 / 675;
+  background-color: var(--color-ink-600);
+  padding: 1px;
+}
+
+.hero-aperture-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-ink-800);
+}
+
+.hero-plate {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* The canvas sits over the poster and stays hidden until frame 1 is decoded
+   and drawn. Frame 1 and the poster are the same image, so revealing it is
+   invisible — no flash, no jump. Opacity only. */
+.hero-canvas {
+  opacity: 0;
+}
+
+.hero-canvas[data-active="true"] {
+  opacity: 1;
+}
+
+@media (min-width: 48rem) {
+  .hero-track {
+    height: var(--hero-scroll-distance);
+  }
+
+  .hero-stage {
+    position: sticky;
+    /* Sticks *below* the fixed nav rather than under it. Nav already reserves
+       its own 80px spacer in flow, so offsetting by the same amount means the
+       stage occupies exactly the visible area at every scroll position —
+       including scroll 0, where padding-based clearance would double up with
+       that spacer and push the aperture off the bottom of the screen. */
+    top: calc(var(--spacing) * 20);
+    height: calc(100vh - calc(var(--spacing) * 20));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-track {
+    height: auto;
+  }
+
+  .hero-stage {
+    position: static;
+    height: auto;
   }
 }
 
