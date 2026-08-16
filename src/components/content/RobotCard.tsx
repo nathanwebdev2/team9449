@@ -35,7 +35,7 @@ export function RobotCard({ robot, hero }: { robot: Robot; hero: string | null }
 
       <div className="p-5">
         <div className="flex items-center justify-between gap-3">
-          <h3 className="font-display text-h3 text-aluminum">{robot.name}</h3>
+          <h2 className="font-display text-h3 text-aluminum">{robot.name}</h2>
           <span className="font-mono text-label uppercase tracking-widest text-steel-400">
             {robot.year}
           </span>

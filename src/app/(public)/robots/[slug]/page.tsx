@@ -14,25 +14,12 @@ export function generateStaticParams() {
   return getRobots().map((robot) => ({ slug: robot.slug }));
 }
 
-function altFromFilename(src: string, robotName: string, index: number): string {
-  const filename = src.split("/").pop() ?? "";
-  const base = filename.replace(/\.[^.]+$/, "");
-  const words = base
-    .replace(/^img[_-]?/i, "")
-    .replace(/[_-]+/g, " ")
-    .replace(/\b\d+\b/g, "")
-    .trim();
-
-  if (!words) return `${robotName} photo ${index + 1}`;
-  return words.charAt(0).toUpperCase() + words.slice(1);
-}
-
 export default async function RobotDetailPage(props: PageProps<"/robots/[slug]">) {
   const { slug } = await props.params;
   const robot = getRobotBySlug(slug);
   if (!robot) notFound();
 
-  const { hero, gallery } = getRobotImages(robot.slug);
+  const { hero, gallery } = getRobotImages(robot.slug, robot.name);
   const body = getRobotBody(robot.slug);
   const competitionRecord = robot.tbaTeamKey
     ? await getTeamCompetitionRecord(robot.tbaTeamKey, robot.year)
@@ -51,8 +38,8 @@ export default async function RobotDetailPage(props: PageProps<"/robots/[slug]">
           <div className="relative aspect-[16/9] w-full overflow-hidden rounded-md border border-ink-600 bg-ink-700">
             {hero ? (
               <Image
-                src={hero}
-                alt={`${robot.name} robot`}
+                src={hero.src}
+                alt={hero.alt}
                 fill
                 priority
                 sizes="100vw"
@@ -132,14 +119,14 @@ export default async function RobotDetailPage(props: PageProps<"/robots/[slug]">
             <div className="mt-12">
               <h2 className="font-display text-h3 text-aluminum">Gallery</h2>
               <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
-                {gallery.map((src, index) => (
+                {gallery.map((photo) => (
                   <div
-                    key={src}
+                    key={photo.src}
                     className="relative aspect-square overflow-hidden rounded-md border border-ink-600 bg-ink-700"
                   >
                     <Image
-                      src={src}
-                      alt={altFromFilename(src, robot.name, index)}
+                      src={photo.src}
+                      alt={photo.alt}
                       fill
                       sizes="(min-width: 640px) 33vw, 50vw"
                       className="object-cover"

@@ -111,7 +111,7 @@
   /* Homepage hero (spec 0010). The aperture has no token because nothing
      else on the site is sized like it — named here rather than inlined so
      there is still one source of truth. Scroll distance is the pinned
-     travel: 61 frames over ~180vh of scrub reads steady without dragging. */
+     travel: 61 frames over ~280vh of scrub reads steady without dragging. */
   --hero-aperture-max: 700px;
   --hero-scroll-distance: 280vh;
 }
