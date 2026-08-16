@@ -16,7 +16,7 @@ export default function RobotsPage() {
             <RobotCard
               key={robot.slug}
               robot={robot}
-              hero={getRobotImages(robot.slug).hero}
+              hero={getRobotImages(robot.slug, robot.name).hero?.src ?? null}
             />
           ))}
         </div>

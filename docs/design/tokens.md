@@ -53,6 +53,13 @@ than a shadow system with many steps.
 Nothing on the site exceeds 560ms except the homepage hero sequence —
 past that, a returning visitor perceives the UI as sluggish.
 
+## Hero sizing
+
+| Token | Value | Why |
+|---|---|---|
+| `--hero-aperture-max` | `700px` | Caps the width of the hex-clipped scroll sequence on wide viewports. Named here rather than left inline because nothing else on the site is sized like it, but it still needs one source of truth. |
+| `--hero-scroll-distance` | `280vh` | The pinned scroll travel the sequence consumes before releasing. Tuned so the 61 frames advance at a pace that reads as steady rather than rushed or draggy. |
+
 ## Breakpoints
 
 `768px` (`--breakpoint-sm`) is the load-bearing one: it's where the

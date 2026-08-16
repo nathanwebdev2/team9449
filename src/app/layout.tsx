@@ -26,7 +26,6 @@ const plexMono = IBM_Plex_Mono({
 
 export const metadata: Metadata = {
   title: "9449 Yellowjackets",
-  description: "[TK] site description",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
