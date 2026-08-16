@@ -85,6 +85,7 @@ export function getRobots(): Robot[] {
     .filter((file) => file.endsWith(".mdx") && !file.startsWith("_"));
 
   const robots: Robot[] = [];
+  const failures: string[] = [];
 
   for (const file of files) {
     const filePath = path.join(ROBOTS_DIR, file);
@@ -94,14 +95,22 @@ export function getRobots(): Robot[] {
 
     if (!result.success) {
       for (const issue of result.error.issues) {
-        console.error(
-          `[content/robots] ${file}: field "${issue.path.join(".") || "(root)"}" — ${issue.message}`
-        );
+        const message = `[content/robots] ${file}: field "${issue.path.join(".") || "(root)"}" — ${issue.message}`;
+        console.error(message);
+        failures.push(message);
       }
       continue;
     }
 
     robots.push(result.data);
+  }
+
+  // A robot file that fails validation must fail the build, not vanish
+  // from /robots with only a console line nobody was watching for.
+  if (failures.length > 0) {
+    throw new Error(
+      `Invalid robot content — fix the file(s) below before building:\n${failures.join("\n")}`
+    );
   }
 
   return robots;
