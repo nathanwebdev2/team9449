@@ -1,8 +1,10 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { getRobotBody, getRobotBySlug, getRobotImages, getRobots } from "@/lib/content/robots";
 import { isPlaceholder } from "@/lib/content/is-placeholder";
 import { getTeamCompetitionRecord } from "@/lib/tba";
+import { buildRobotCreativeWorkJsonLd } from "@/lib/json-ld";
 import { STATUS_LABEL } from "@/components/content/RobotCard";
 import { SpecTable } from "@/components/content/SpecTable";
 import { StatGrid } from "@/components/content/StatGrid";
@@ -12,6 +14,32 @@ import { Container } from "@/components/layout/Container";
 
 export function generateStaticParams() {
   return getRobots().map((robot) => ({ slug: robot.slug }));
+}
+
+export async function generateMetadata(
+  props: PageProps<"/robots/[slug]">
+): Promise<Metadata> {
+  const { slug } = await props.params;
+  const robot = getRobotBySlug(slug);
+  if (!robot) return {};
+
+  const hasGame = robot.game && !isPlaceholder(robot.game);
+  const hasTagline = robot.tagline && !isPlaceholder(robot.tagline);
+
+  const description = [
+    `${robot.name} — Yellowjackets 9449's ${robot.year} competition robot${hasGame ? ` for ${robot.game}` : ""}.`,
+    hasTagline ? robot.tagline : null,
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  return {
+    title: robot.name,
+    description,
+    alternates: {
+      canonical: `/robots/${robot.slug}`,
+    },
+  };
 }
 
 export default async function RobotDetailPage(props: PageProps<"/robots/[slug]">) {
@@ -24,6 +52,7 @@ export default async function RobotDetailPage(props: PageProps<"/robots/[slug]">
   const competitionRecord = robot.tbaTeamKey
     ? await getTeamCompetitionRecord(robot.tbaTeamKey, robot.year)
     : null;
+  const creativeWorkJsonLd = buildRobotCreativeWorkJsonLd(robot, body);
 
   const links = [
     robot.cadUrl ? { label: "View CAD (work in progress)", href: robot.cadUrl } : null,
@@ -33,6 +62,13 @@ export default async function RobotDetailPage(props: PageProps<"/robots/[slug]">
 
   return (
     <>
+      {creativeWorkJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(creativeWorkJsonLd) }}
+        />
+      )}
+
       <Section className="pb-0 md:pb-0">
         <Container>
           <div className="relative aspect-[16/9] w-full overflow-hidden rounded-md border border-ink-600 bg-ink-700">

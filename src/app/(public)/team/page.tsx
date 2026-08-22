@@ -6,7 +6,12 @@ import { Section } from "@/components/layout/Section";
 import { SubteamCard } from "@/components/content/SubteamCard";
 
 export const metadata: Metadata = {
-  title: "Team — 9449 Yellowjackets",
+  title: "Team",
+  description:
+    "9449 Yellowjackets is a community FRC robotics team based in Calgary, Alberta — open to any student grades 9–12, regardless of school.",
+  alternates: {
+    canonical: "/team",
+  },
 };
 
 const SUBTEAMS = [

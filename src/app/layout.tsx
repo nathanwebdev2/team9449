@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Archivo, IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
+import { buildSportsTeamJsonLd } from "@/lib/json-ld";
+import { ROOT_DESCRIPTION_DRAFT } from "@/lib/metadata";
+import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const archivo = Archivo({
@@ -25,16 +28,30 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "9449 Yellowjackets",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "9449 Yellowjackets",
+    template: "%s | 9449 Yellowjackets",
+  },
+  description: ROOT_DESCRIPTION_DRAFT,
+  alternates: {
+    canonical: "/",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
+  const sportsTeamJsonLd = buildSportsTeamJsonLd();
+
   return (
     <html
       lang="en"
       className={`${archivo.variable} ${plexSans.variable} ${plexMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(sportsTeamJsonLd) }}
+        />
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-skiplink focus:rounded-sm focus:bg-jacket-500 focus:px-4 focus:py-2 focus:text-ink-900"
