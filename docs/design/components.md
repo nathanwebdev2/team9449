@@ -22,8 +22,8 @@ Update this file in the same commit as any new component.
 
 | Component | Status | Usages | Notes |
 |---|---|---|---|
-| `Reveal` | ✅ built (spec 0008) | none yet — homepage stat grid, robot cards, impact section planned | fade + 8px rise, in-view triggered once, `prefers-reduced-motion` skips straight to final state |
-| `CountUp` | ✅ built (spec 0008) | none yet — homepage stat grid planned | counts once on in-view, tabular figures via `.font-mono`, reduced-motion jumps to final value |
+| `Reveal` | ✅ built (spec 0008) | homepage (×4: stats, robots, impact, sponsors sections, spec 0013) | fade + 8px rise, in-view triggered once, `prefers-reduced-motion` skips straight to final state |
+| `CountUp` | ✅ built (spec 0008) | homepage stat tiles (spec 0013, inline — see `StatGrid` note below) | counts once on in-view, tabular figures via `.font-mono`, reduced-motion jumps to final value. First real usage of `motion/react` anywhere in the app — pulls the library's DOM/animation chunks into whatever route imports it (see spec 0013 report for the measured bundle cost) |
 | `ScrubSequence` | ✅ built (spec 0010) | homepage hero — the only L4 section on the site, by design | 61-frame CAD rotation scrubbed to a `<canvas>` clipped to a flat-top hex aperture. Pin is CSS `position: sticky`, **not** ScrollTrigger `pin` — GSAP only reads scroll progress, so no pin-spacer and no CLS. Layout (track height, sticky stage, reduced-motion collapse) lives in `globals.css` so it is right on first paint. Frame 1 is a server-rendered poster and the LCP element; frames 2–61 load on `requestIdleCallback` at concurrency 6, desktop-only. Mobile (`<48rem`), `prefers-reduced-motion`, and Save-Data all keep the poster and never fetch GSAP or the other 60 frames. Props: `frames`, `children` (rendered in the pinned stage), `className` |
 
 ## Content — `/src/components/content/`
@@ -31,8 +31,8 @@ Update this file in the same commit as any new component.
 | Component | Status | Usages | Notes |
 |---|---|---|---|
 | `SpecTable` | ✅ built | `/robots/[slug]` | label/value pairs, mono values, real `<table>` markup, skips empty/null rows |
-| `StatGrid` | ✅ built (spec 0004) | `/robots/[slug]` | big-number stat cells, skips empty/null stats; still needed on homepage + impact |
-| `RobotCard` | ✅ built | `/robots` index | hero image or initial placeholder, name, year, tagline, status badge |
+| `StatGrid` | ✅ built (spec 0004) | `/robots/[slug]` | big-number stat cells, skips empty/null stats. Homepage (spec 0013) uses the same visual pattern inline rather than this component, so that `CountUp`'s bundle cost stays scoped to the homepage — see note below |
+| `RobotCard` | ✅ built | `/robots` index, homepage archive teaser (spec 0013) | hero image or initial placeholder, name, year, tagline, status badge |
 | `CompetitionRecord` | ✅ built (spec 0009) | `/robots/[slug]` | events/results table + awards list, sourced from TBA (`src/lib/tba.ts`), skips rendering entirely if no TBA data or the fetch fails |
 | `SponsorCard` / `SponsorGrid` | ⏳ not started | `/sponsors`, homepage | hex-cell tiles, sized by tier |
 | `SubteamCard` | ✅ built (spec 0006) | `/team` (×5: CAD, Build, Programming, Business, Drive) | name + description, border/radius/hover pattern follows `RobotCard` |
