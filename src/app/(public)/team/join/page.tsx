@@ -4,7 +4,12 @@ import { Section } from "@/components/layout/Section";
 import { Rule } from "@/components/layout/Rule";
 
 export const metadata: Metadata = {
-  title: "Join the Team — 9449 Yellowjackets",
+  title: "Join the Team",
+  description:
+    "Open to any Calgary-area student, grades 9–12, no robotics experience required. Fees, schedule, and how to get in touch.",
+  alternates: {
+    canonical: "/team/join",
+  },
 };
 
 const FEES = [

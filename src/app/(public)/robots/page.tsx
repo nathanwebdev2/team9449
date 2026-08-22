@@ -1,7 +1,16 @@
+import type { Metadata } from "next";
 import { getRobotImages, getRobots } from "@/lib/content/robots";
 import { RobotCard } from "@/components/content/RobotCard";
 import { Section } from "@/components/layout/Section";
 import { Container } from "@/components/layout/Container";
+
+export const metadata: Metadata = {
+  title: "Robots",
+  description: "Every competition robot the Yellowjackets have built, season by season.",
+  alternates: {
+    canonical: "/robots",
+  },
+};
 
 export default function RobotsPage() {
   const robots = [...getRobots()].sort((a, b) => b.year - a.year);
